@@ -1,28 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
-  
-  <title>Frontend Mentor | Advice generator app</title>
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
 
-  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-  <style>
-    .attribution { font-size: 11px; text-align: center; }
-    .attribution a { color: hsl(228, 45%, 44%); }
-  </style>
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+    <title>Gerador de Conselhos</title>
+  </head>
+  <body>
+    <div class="container">
+      <p class="advice-number">Advice #</p>
+      <p class="advice-text">
+        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Harum maxime
+        repellendus quis eius natus necessitatibus exercitationem deleniti
+        deserunt, modi rem tempora vero assumenda aperiam consequatur
+        dignissimos cumque quam eos aliquid."
+      </p>
+    </div>
+    <button class="dice"></button>
+  </body>
+  <script>
+    const button = document.querySelector(".dice");
+    const adviceNumber = document.querySelector(".advice-number");
+    const adviceText = document.querySelector(".advice-text");
 
-  Advice #<!-- Advice ID goes here -->
-
-  "<!-- Advice text goes here -->"
-  
-  <div class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-    Coded by <a href="#">Your Name Here</a>.
-  </div>
-</body>
+    const url = "https://api.adviceslip.com/advice";
+    button.addEventListener("click", () => {
+      fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+          adviceNumber.innerText = `Advice # ${data.slip.id}`;
+          adviceText.innerText = `"${data.slip.advice}"`;
+        });
+    });
+  </script>
 </html>
